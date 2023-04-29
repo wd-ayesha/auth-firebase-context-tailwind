@@ -5,7 +5,7 @@ import { AuthContext } from "../providers/AuthProviders";
 
 const Login = () => {
 
-  const { signIn } = useContext(AuthContext);
+  const { signIn, signInWithGoogle } = useContext(AuthContext);
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -24,6 +24,17 @@ const Login = () => {
       console.log(error)
     })
   };
+
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+    .then(result => {
+      const loggedUser = result.user;
+      console.log(loggedUser);
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
 
   return (
     <div>
@@ -75,6 +86,9 @@ const Login = () => {
            {/*  <p className="mb-4 ml-8">
                 <Link to="/register" className="label-text-alt link link-hover">New to Auth Master? Please Register</Link>
             </p> */}
+            <div className="mb-6 ml-8">
+            <button onClick={handleGoogleSignIn} className="btn btn-active btn-ghost">Login with Google</button>
+            </div>
           </div>
         </div>
       </div>
